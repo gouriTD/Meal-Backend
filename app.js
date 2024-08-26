@@ -12,12 +12,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 app.get('/',(req,res)=>{
   res.send('Connected to the server')
@@ -37,13 +37,22 @@ app.get('/allMeals',async(req,res)=>{
 })
 
 app.get('/meals', async (req, res) => {
-  const meals = await fs.readFile(__dirname +'/data/available-meals.json', 'utf8');
-  res.json(JSON.parse(meals));
+  try {
+    const meals = await fs.readFile(__dirname + '/data/available-meals.json', 'utf8');
+    res.json(JSON.parse(meals));
+  } catch (error) {
+    res.send({message:error.message})
+  }
 });
 
 app.get('/orders', async (req, res) => {
-  const orders = await fs.readFile('./data/orders.json', 'utf8');
-  res.json(JSON.parse(orders));
+  try {
+    const orders = await fs.readFile(__dirname + '/data/orders.json', 'utf8');
+    res.json(JSON.parse(orders));
+  } catch (error) {
+    res.send({message:error.message})
+  }
+  
 });
 
 app.post('/orders', async (req, res) => {
@@ -77,19 +86,19 @@ app.post('/orders', async (req, res) => {
     ...orderData,
     id: (Math.random() * 1000).toString(),
   };
-  const orders = await fs.readFile('./data/orders.json', 'utf8');
+  const orders = await fs.readFile(__dirname + '/data/orders.json', 'utf8');
   const allOrders = JSON.parse(orders);
   allOrders.push(newOrder);
-  await fs.writeFile('./data/orders.json', JSON.stringify(allOrders));
+  await fs.writeFile(__dirname + '/data/orders.json', JSON.stringify(allOrders));
   res.status(201).json({ message: 'Order created!' });
 });
 
-// app.use((req, res) => {
-//   if (req.method === 'OPTIONS') {
-//     return res.sendStatus(200);
-//   }
+app.use((req, res) => {
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
 
-//   res.status(404).json({ message: 'Not found' });
-// });
+  res.status(404).json({ message: 'Not found' });
+});
 
 app.listen(3000);
