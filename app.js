@@ -2,7 +2,6 @@ import fs from 'node:fs/promises';
 
 import bodyParser from 'body-parser';
 import express from 'express';
-import { MEALS_DATA } from './data/available-meals';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -37,12 +36,8 @@ app.get('/allMeals',async(req,res)=>{
   }
 })
 
-app.get('/allJsonMeals',(req,res)=>{
-  res.json(MEALS_DATA)
-})
-
 app.get('/meals', async (req, res) => {
-  const meals = await fs.readFile('./data/available-meals.json', 'utf8');
+  const meals = await fs.readFile(__dirname +'/data/available-meals.json', 'utf8');
   res.json(JSON.parse(meals));
 });
 

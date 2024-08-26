@@ -1,4 +1,4 @@
- export const MEALS_DATA=[
+ [
   {
     "id": "m1",
     "name": "Mac & Cheese",
