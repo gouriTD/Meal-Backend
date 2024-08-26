@@ -19,6 +19,15 @@ app.get('/',(req,res)=>{
   res.send('Connected to the server')
 })
 
+app.get('/about',(req,res)=>{
+  res.send('<h1>This is an about page</h1>')
+})
+
+app.get('/allMeals',async(req,res)=>{
+  const meals = await fs.readFile('./data/available-meals.json', 'utf8');
+  res.send(JSON.parse(meals))
+})
+
 app.get('/meals', async (req, res) => {
   const meals = await fs.readFile('./data/available-meals.json', 'utf8');
   res.json(JSON.parse(meals));
