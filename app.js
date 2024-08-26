@@ -24,8 +24,12 @@ app.get('/about',(req,res)=>{
 })
 
 app.get('/allMeals',async(req,res)=>{
-  const meals = await fs.readFile('./data/available-meals.json', 'utf8');
-  res.send(JSON.parse(meals))
+  try {
+    const meals = await fs.readFile('./data/available-meals.json', 'utf8');
+    res.send(JSON.parse(meals))
+  } catch (error) {
+    res.send({message:error.message})
+  }
 })
 
 app.get('/meals', async (req, res) => {
