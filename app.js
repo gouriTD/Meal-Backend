@@ -67,12 +67,12 @@ app.post('/orders', async (req, res) => {
   res.status(201).json({ message: 'Order created!' });
 });
 
-app.use((req, res) => {
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
+// app.use((req, res) => {
+//   if (req.method === 'OPTIONS') {
+//     return res.sendStatus(200);
+//   }
 
-  res.status(404).json({ message: 'Not found' });
-});
+//   res.status(404).json({ message: 'Not found' });
+// });
 
 app.listen(3000);
