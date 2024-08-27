@@ -16,8 +16,8 @@ app.use((req, res, next) => {
 // const corsWhitelist = [
 //     'http://localhost:5173'
 // ];
-if (corsWhitelist.indexOf(req.headers.origin) !== -1){
-}
+// if (corsWhitelist.indexOf(req.headers.origin) !== -1){
+// }
 
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
