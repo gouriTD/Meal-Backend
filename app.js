@@ -13,9 +13,17 @@ app.use(bodyParser.json());
 app.use(express.static(join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '* , http://localhost');
+const corsWhitelist = [
+    '*',
+    'http://localhost',
+    'http://localhost:5173'
+];
+if (corsWhitelist.indexOf(req.headers.origin) !== -1){
+  res.setHeader('Access-Control-Allow-Origins', req.headers.origin);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+}
+  
   next();
 });
 
