@@ -98,8 +98,8 @@ app.post('/orders', async (req, res) => {
   const orders = await fs.readFile(__dirname + '/data/orders.json', 'utf8');
   const allOrders = JSON.parse(orders);
   allOrders.push(newOrder);
-  await fs.writeFile(__dirname + '/data/orders.json', JSON.stringify(allOrders));
-  res.status(201).json({ message: 'Order created!' });
+  // await fs.writeFile(__dirname + '/data/orders.json', JSON.stringify(allOrders));
+  res.status(201).json({ message: 'Order created!',orders:JSON.stringify(allOrders) });
 });
 
 app.use((req, res) => {
