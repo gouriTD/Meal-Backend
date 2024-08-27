@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 
 import bodyParser from 'body-parser';
 import express from 'express';
-import { dirname } from 'path';
+import { dirname,join} from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -10,10 +10,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 
 app.use(bodyParser.json());
-app.use(express.static('public'));
+app.use(express.static(join(__dirname, 'public')));
 
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '* , http://localhost');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
