@@ -15,16 +15,16 @@ app.use(express.static(join(__dirname, 'public')));
 app.use((req, res, next) => {
 
   console.log(req.headers.origin)
-  const corsWhiteList = [
-    'https://gouritd.github.io',
-    'http://localhost:5173'
-  ]
-  if(corsWhiteList.indexOf(req.headers.origin) !== -1){
-    console.log('index found',req.method)
-    res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
+  // const corsWhiteList = [
+  //   'https://gouritd.github.io',
+  //   'http://localhost:5173'
+  // ]
+  
+    
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  }
+  
   next();
 });
 
