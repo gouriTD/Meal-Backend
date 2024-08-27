@@ -16,6 +16,7 @@ app.use((req, res, next) => {
 
   console.log(req.headers.origin)
   const corsWhiteList = [
+    'https://gouritd.github.io/',
     'http://localhost:5173'
   ]
   if(corsWhiteList.indexOf(req.headers.origin) !== -1){
