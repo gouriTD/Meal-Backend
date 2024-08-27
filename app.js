@@ -12,12 +12,12 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static('public'));
 
-// app.use((req, res, next) => {
-//   res.setHeader('Access-Control-Allow-Origin', '*');
-//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
-//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-//   next();
-// });
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
 
 app.get('/',(req,res)=>{
   res.send('Connected to the server')
@@ -93,12 +93,12 @@ app.post('/orders', async (req, res) => {
   res.status(201).json({ message: 'Order created!' });
 });
 
-// app.use((req, res) => {
-//   if (req.method === 'OPTIONS') {
-//     return res.sendStatus(200);
-//   }
+app.use((req, res) => {
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
 
-//   res.status(404).json({ message: 'Not found' });
-// });
+  res.status(404).json({ message: 'Not found' });
+});
 
 app.listen(3000);
